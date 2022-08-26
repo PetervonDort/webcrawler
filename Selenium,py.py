@@ -98,8 +98,8 @@ while hour >7 and hour <18:
         wait = 60
     time.sleep(wait)
     Wert = Content.meGrab()
-    #alterWert = locale.atof(Wert[0])
-    alterWert = 5.7
+    alterWert = locale.atof(Wert[0])
+    #alterWert = 5.7
     Differenz = Differenz-alterWert
     DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), Differenz, locale.atof(Wert[4]),locale.atof(Wert[5]))
     #print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), 1.4, locale.atof(Wert[4]),locale.atof(Wert[5]))
