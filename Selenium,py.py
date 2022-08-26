@@ -101,8 +101,8 @@ while hour >7 and hour <18:
     #alterWert = locale.atof(Wert[0])
     alterWert = 5.7
     Differenz = Differenz-alterWert
-    #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), 1.4, locale.atof(Wert[4]),locale.atof(Wert[5]))
+    DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), Differenz, locale.atof(Wert[4]),locale.atof(Wert[5]))
     #print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), 1.4, locale.atof(Wert[4]),locale.atof(Wert[5]))
-    DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
+    #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
     print (Wert)
 Content.meClose()
