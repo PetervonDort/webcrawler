@@ -35,11 +35,11 @@ class ClDataBase():
         zeiger = verbindung.cursor()
         sql_anweisung =""" 
         CREATE TABLE IF NOT EXISTS Kurse(
-        Woche TEXT(3),
+        Woche INT(3),
         Tag TEXT(3),
         Stunde INT(2),
-        Minute TEXT(2),
-        Sekunde TEXT(2),        
+        Minute INT(2),
+        Sekunde INT(2),        
         VKPreis REAL(5),
         EKPreis REAL(5),
         Differenz REAL(2),
