@@ -8,7 +8,7 @@ import time
 #Variablen
 WINDOW_SIZE = "1920,1080"
 c = Options()
-c.add_argument("--headless")
+#c.add_argument("--headless")
 driver = webdriver.Chrome(options=c)
 Wert = []
 wait = 2
@@ -62,12 +62,12 @@ class ClDataBase():
 class ClContentGrab():
     def __init__(self):
 
-        driver.get('https://www.boerse-stuttgart.de/de-de/produkte/aktien/stuttgart/555750-deutsche-telekom')
-        driver.find_element(By.XPATH, "/html/body/aside/div[2]/div[2]/button[1]").click()
+        driver.get('https://www.onvista.de/aktien/handelsplaetze/Deutsche-Telekom-Aktie-DE0005557508?notation=38005')
+        driver.find_element(By.CLASS_NAME, "message-component message-button no-children focusable")
 
     def meGrab(self):
         contList = []
-        content = driver.find_elements(By.CLASS_NAME, "bsg-card--course-data .bsg-card__value")
+        content = driver.find_elements(By.XPATH, "/html/body/div[1]/div[2]/section/div[8]/div/section[1]/div[2]/table/tbody/tr[5]/td[5]/div/data")
         for con in content:
             contList.append(con.text)
         return(contList)
@@ -93,14 +93,10 @@ while hour >7 :#and  hour <18:
     time.sleep(2)
     Differenz =alterWert
     Wert = Content.meGrab()
-    for Zahl  in range(0,2):
-        if Wert[Zahl] == '-':
-            Wert[Zahl] = 0.0
-        else:
-            Wert[Zahl] = locale.atof(Wert[Zahl])
     print(Wert)
+
     Differenz = Differenz-alterWert
     #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]))
-    print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde, (Wert[0]), (Wert[1]))
+    #print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde, (Wert[0]), (Wert[1]))
     #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
 Content.meClose()
