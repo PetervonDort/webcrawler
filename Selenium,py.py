@@ -42,7 +42,6 @@ class ClDataBase():
         Sekunde INT(2),        
         VKPreis REAL(5),
         EKPreis REAL(5),
-        Differenz REAL(2),
         HoestPreis REAL(5),
         TiefPreis REAL (5)      
         );"""
@@ -50,12 +49,12 @@ class ClDataBase():
 
 
 
-    def meKursupload(self, Woche, Tag, Stunde, Minute, Sekunde, VK, EK, Diff, HoePr, NiPr):
+    def meKursupload(self, Woche, Tag, Stunde, Minute, Sekunde, VK, EK):
         verbindung = sqlite3.connect("/home/peter/Dokumente/Datenbanken/boerseRechner.db")
         zeiger = verbindung.cursor()
         zeiger.execute( """
-        INSERT INTO Kurse VALUES(?,?,?,?,?,?,?,?,?,?)""",
-                        (Woche, Tag, Stunde, Minute, Sekunde, VK, EK, Diff, HoePr, NiPr))
+        INSERT INTO Kurse VALUES(?,?,?,?,?,?,?,?,?)""",
+                        (Woche, Tag, Stunde, Minute, Sekunde, VK, EK))
         verbindung.commit()
         verbindung.close()
 
@@ -94,17 +93,14 @@ while hour >7 :#and  hour <18:
     time.sleep(2)
     Differenz =alterWert
     Wert = Content.meGrab()
-    for nu in Wert:
-        if nu == Wert[3] or Wert[2]:# Das macht noch alles wieder kaputt
-            break
+    for Zahl  in range(0,2):
+        if Wert[Zahl] == '-':
+            Wert[Zahl] = 0.0
         else:
-            if nu == '-' or nu == "%":
-                nu = 0.0
-            else:
-                nu = locale.atof(nu)
+            Wert[Zahl] = locale.atof(Wert[Zahl])
     print(Wert)
     Differenz = Differenz-alterWert
-    DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), Differenz, locale.atof(Wert[4]),locale.atof(Wert[5]))
-    print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]), Differenz, locale.atof(Wert[4]),locale.atof(Wert[5]))
+    #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]))
+    print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde, (Wert[0]), (Wert[1]))
     #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
 Content.meClose()
