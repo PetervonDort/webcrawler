@@ -41,9 +41,7 @@ class ClDataBase():
         Minute INT(2),
         Sekunde INT(2),        
         VKPreis REAL(5),
-        EKPreis REAL(5),
-        HoestPreis REAL(5),
-        TiefPreis REAL (5)      
+        EKPreis REAL(5)
         );"""
         zeiger.execute(sql_anweisung)
 
@@ -52,8 +50,7 @@ class ClDataBase():
     def meKursupload(self, Woche, Tag, Stunde, Minute, Sekunde, VK, EK):
         verbindung = sqlite3.connect("/home/peter/Dokumente/Datenbanken/boerseRechner.db")
         zeiger = verbindung.cursor()
-        zeiger.execute( """
-        INSERT INTO Kurse VALUES(?,?,?,?,?,?,?,?,?)""",
+        zeiger.execute( """ INSERT INTO Kurse VALUES(?,?,?,?,?,?,?)""",
                         (Woche, Tag, Stunde, Minute, Sekunde, VK, EK))
         verbindung.commit()
         verbindung.close()
@@ -82,25 +79,23 @@ class ClContentGrab():
 
 DataB = ClDataBase()
 Content = ClContentGrab()
-
-while hour >7 :#and  hour <18:
-    aktuelleStunde = time.strftime('%H')
-    aktuelleMinute = time.strftime('%M')
-    aktuelleSekunde = time.strftime('%S')
-    hour = int(aktuelleStunde)
-    if hour >16:
-        wait = 60
-    time.sleep(2)
-    Differenz =alterWert
-    Wert = Content.meGrab()
-    for Zahl  in range(0,2):
-        if Wert[Zahl] == '-':
-            Wert[Zahl] = 0.0
-        else:
-            Wert[Zahl] = locale.atof(Wert[Zahl])
-    print(Wert)
-    Differenz = Differenz-alterWert
-    #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,locale.atof(Wert[0]), locale.atof(Wert[1]))
-    print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde, (Wert[0]), (Wert[1]))
-    #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
+while hour <22:
+    while hour >7 and  hour <21:
+        aktuelleStunde = time.strftime('%H')
+        aktuelleMinute = time.strftime('%M')
+        aktuelleSekunde = time.strftime('%S')
+        hour = int(aktuelleStunde)
+        if hour >16:
+            wait = 60
+        time.sleep(2)
+        Wert = Content.meGrab()
+        for Zahl  in range(0,2):
+            if Wert[Zahl] == '-':
+                Wert[Zahl] = 0.0
+            else:
+                Wert[Zahl] = locale.atof(Wert[Zahl])
+        #print(Wert)
+        DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,Wert[0], Wert[1])
+        print(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde, (Wert[0]), (Wert[1]))
+        #DataB.meKursupload(aktuelleWoche,aktuellerTag,aktuelleStunde,aktuelleMinute,aktuelleSekunde,19.88, 19.4, 1.4, 4.0,5.4)
 Content.meClose()
