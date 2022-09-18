@@ -63,7 +63,8 @@ class ClContentGrab():
     def __init__(self):
 
         driver.get('https://www.onvista.de/aktien/handelsplaetze/Deutsche-Telekom-Aktie-DE0005557508?notation=38005')
-        driver.find_element(By.CLASS_NAME, "message-component message-button no-children focusable")
+        time.sleep(5)
+        driver.find_element(By.CSS_SELECTOR, "html body div.message-safe-area-holder.message-safe-area-holder--safe-bottom div.message-safe-area div.message-container.global-font div#notice.message.type-modal div.message-component.message-row div.message-component.message-column button.message-component.message-button.no-children.focusable.sp_choice_type_11.first-focusable-el")
 
     def meGrab(self):
         contList = []
